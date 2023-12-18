@@ -65,8 +65,8 @@ app.setAsDefaultProtocolClient("deeeepio");
 var extensionsLoaded = false;
 
 // version info
-const version_code = "v2.0.3.3";
-const version_num = "2033";
+const version_code = "v2.0.3.4";
+const version_num = "2034";
 
 // custom function for later
 function matches(text, partial) {
@@ -117,54 +117,68 @@ try {
 const store = new Store();
 var docassets = store.get("docassets");
 if (docassets != true && docassets != false) {
+
 	var docassets = false;
 }
 var ublock = store.get("ublock");
-if (ublock != true && ublock != false) {
+if (ublock != true && ublock != false) 
+{
 	var ublock = true;
 }
 var rpc = store.get("rpc");
-if (rpc != true && rpc != false) {
+if (rpc != true && rpc != false) 
+{
 	var rpc = true;
 }
 var twemoji = store.get("twemoji");
-if (twemoji != true && twemoji != false) {
+if (twemoji != true && twemoji != false) 
+{
 	var twemoji = true;
 }
 var theme = store.get("theme");
-if (theme != true && theme != false) {
+if (theme != true && theme != false) 
+{
 	var theme = true;
 }
 var v3ui = store.get("v3ui");
-if (v3ui != true && v3ui != false) {
+if (v3ui != true && v3ui != false) 
+{
 	var v3ui = false;
 }
 var aim_helper = store.get("aim_helper");
-if (aim_helper != true && aim_helper != false) {
+if (aim_helper != true && aim_helper != false) 
+{
 	var aim_helper = true;
 }
+
 var qc1 = store.get("quick_chat.1");
 var qc2 = store.get("quick_chat.2");
 var qc3 = store.get("quick_chat.3");
 var qc4 = store.get("quick_chat.4");
 var spam_chat = store.get("quick_chat.spam");
-if (qc1 == undefined) {
+
+if (qc1 == undefined) 
+{
 	store.set("quick_chat.1", "gg");
 	qc1 = "gg";
 }
-if (qc2 == undefined) {
+if (qc2 == undefined) 
+{
 	store.set("quick_chat.2", "lol");
 	qc2 = "lol";
 }
-if (qc3 == undefined) {
+if (qc3 == undefined) 
+{
 	store.set("quick_chat.3", "thank you");
 	qc3 = "thank you";
 }
-if (qc4 == undefined) {
+if (qc4 == undefined) 
+{
 	store.set("quick_chat.4", "ow!");
 	qc4 = "ow!";
 }
-if (spam_chat == undefined) {
+if (spam_chat == undefined) 
+{
 	store.set("quick_chat.spam", "௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸");
 	spam_chat = "௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸௸";
 }
@@ -224,7 +238,7 @@ app.whenReady().then(async function makeNewWindow() {
 		// close confirmation dialog
 		function makeNewWindow() {
 
-			 //ctrl r for reload, debugging purposes, should not be needed
+			 // Ctrl r for reload, debugging purposes, should not be needed
 			 localshortcut.register('CommandOrControl+R', () => {
 			     app.relaunch();
                  app.exit();
@@ -258,12 +272,18 @@ app.whenReady().then(async function makeNewWindow() {
 				}
 			});
 
-			// bye-bye stinky electron menu bar (no one likes you anyways)
+			// Removes electron menu bar
 			win.removeMenu();
+            global.consoleLogScriptRunning = false;
 
-			global.consoleLogScriptRunning = false;
+            var winsize = store.get("window_size")
+            {
+                if (winsize == "max") win.maximize();
+                else if (winsize == "res") win.unmaximize();
+                else if (winsize == "min") win.minimize();
+            }
 
-			//wait for the base webpage to finish loading before customizing it
+			// Wait for the base webpage to finish loading before customizing it
 			win.webContents.on("did-finish-load", function () {
 				if (debug) {
 					localshortcut.register("Shift+CommandOrControl+I", () => {
@@ -271,7 +291,7 @@ app.whenReady().then(async function makeNewWindow() {
 					});
 				}
 
-				// keep everything running otherwise youll see a stack of 500 chat messages when you come back
+				// Keep everything running otherwise youll see a stack of 500 chat messages when you come back
 				win.webContents.setBackgroundThrottling(false);
 
 				// blockyfish logo
@@ -513,7 +533,7 @@ app.whenReady().then(async function makeNewWindow() {
                     `);
 				}, 2000);
 
-				//url input textfield
+				// Username input textfield
 				win.webContents.executeJavaScript(`
                 const top_corner_section = document.querySelector('#app > div.ui > div > div.el-row.header > div.el-col.el-col-24.auto-col.left')
                 const url_div = document.createElement('div')
@@ -527,7 +547,7 @@ app.whenReady().then(async function makeNewWindow() {
                         }
                     });
                 }, 100)
-                const go_to_url = 'NAVIGATE_TO_THIS_URL: https://beta.deeeep.io/u/'
+                const go_to_url = 'NAVIGATE_TO_URL: https://beta.deeeep.io/u/'
                 url_div.outerHTML = '<div style=" margin: 10px; padding: 5px 10px; background-color: #0003; border: solid #374151 1px; border-radius: 7px;"><input type="text" style=" background-color: #1f293700; outline: none;" placeholder="Enter a username..." id="url-input-box"><button style="padding: 0 0 0 5px;outline:none;" id="url-input-confirm" onclick="console.log(go_to_url + url_input_type.value)">Go</button></div>'
                 `);
 
@@ -566,7 +586,7 @@ app.whenReady().then(async function makeNewWindow() {
                 const evoMain = document.getElementById("evo-main")
                 const evoBox = document.createElement("div")
                 evoMain.appendChild(evoBox)
-                evoBox.outerHTML = '<img draggable="false" src="https://raw.githubusercontent.com/nostopgmaming17/blockyfish-thej/master/img/evolution_tree_themed.png">'
+                evoBox.outerHTML = '<img draggable="false" src="https://raw.githubusercontent.com/blaststar/blockyfish-clean/master/img/evolution_tree_themed.png">'
                 const evoCloses = document.getElementsByClassName("evo-close")
                 const evoModal = document.getElementById("evo-modal")
                 evoModal.classList.toggle("evo-hidden")
@@ -577,7 +597,7 @@ app.whenReady().then(async function makeNewWindow() {
                 }
                 `);
 
-				//build plugins button
+				// Build plugins button
 				win.webContents.executeJavaScript(`
                 const plugin_button_clone = document.querySelector('div.p-2.sidebar.right.space-y-2 > div.container > div > div').cloneNode(true);
                 document.querySelector('div.p-2.sidebar.right.space-y-2 > div.container > div').appendChild(plugin_button_clone);
@@ -589,12 +609,12 @@ app.whenReady().then(async function makeNewWindow() {
                 const pluginIcon = document.querySelector("button.plugin > span:nth-child(1) > svg:nth-child(1)")
                 `);
 
-				//change plugin icon
+				// Change plugin icon
 				win.webContents.executeJavaScript(
 					'pluginIcon.outerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tools" viewBox="0 0 16 16"><path d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814L1 0Zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708ZM3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026L3 11Z"/></svg>`'
 				);
 
-				//build plugin modal
+				// Build plugin modal
 				win.webContents.executeJavaScript(`
                 const plugin_style = document.createElement('style')
                 document.querySelector('head').appendChild(plugin_style)
@@ -1180,7 +1200,7 @@ app.whenReady().then(async function makeNewWindow() {
                     if (navigator.appVersion.indexOf("Win") != -1) Name = "win";
                     if (navigator.appVersion.indexOf("Mac") != -1) Name = "mac";
                     if (navigator.appVersion.indexOf("Linux") != -1) Name = "linux";
-                    let url_json = await (await (fetch('https://api.github.com/repos/Blaststar/bf-clean/releases/latest'))).json();
+                    let url_json = await (await (fetch('https://api.github.com/repos/blaststar/blockyfish-clean/releases/latest'))).json();
                     for (let i = 0; i < url_json.assets.length; i++) {
                         if (matches(url_json.assets[i].name, Name)) {
                             var download_url = url_json.assets[i].browser_download_url
@@ -1360,6 +1380,7 @@ app.whenReady().then(async function makeNewWindow() {
 
 							if (matches(msg, "window_action:")) {
 								msg = msg.replace("window_action: ", "");
+                                if(msg !== "cls") store.set("window_size", msg);
 								if (msg == "max") win.maximize();
 								else if (msg == "res") win.unmaximize();
 								else if (msg == "min") win.minimize();
@@ -1441,8 +1462,8 @@ app.whenReady().then(async function makeNewWindow() {
 								rpc = true;
 							}
 
-							if (matches(msg, "NAVIGATE_TO_THIS_URL:")) {
-								var msg = msg.replace("NAVIGATE_TO_THIS_URL: ", "").toLowerCase().replace("https://", "").replace("http://", "");
+							if (matches(msg, "NAVIGATE_TO_URL:")) {
+								var msg = msg.replace("NAVIGATE_TO_URL: ", "").toLowerCase().replace("https://", "").replace("http://", "");
 								if (msg.match(/^beta\.deeeep\.io(\/|\?)/)) {
 									// win.webContents.loadURL("https://" + msg)
 									win.webContents.executeJavaScript(
