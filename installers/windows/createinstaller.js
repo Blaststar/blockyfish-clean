@@ -1,6 +1,6 @@
 const createWindowsInstaller = require("electron-winstaller").createWindowsInstaller;
 const path = require("path");
-const version = "2.0.3.3";
+const version = "2.0.3.4";
 
 getInstallerConfig()
 	.then(createWindowsInstaller)
@@ -16,7 +16,7 @@ function getInstallerConfig() {
 
 	return Promise.resolve({
 		appDirectory: path.join(outPath, "Blockyfish-win32-x64/"),
-		authors: "Blaststar",
+		authors: "Pi",
 		noMsi: true,
 		outputDirectory: path.join(outPath, "windows-installer"),
 		exe: "Blockyfish.exe",
